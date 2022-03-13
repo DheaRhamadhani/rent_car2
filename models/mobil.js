@@ -19,17 +19,17 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    nama_mobil: DataTypes.STRING,
+    nama_mobil: DataTypes.INTEGER,
     merk: DataTypes.STRING,
     jenis: DataTypes.STRING,
     warna: DataTypes.STRING,
-    tahun_pembuatan: DataTypes.STRING,
+    tahun_pembuatan: DataTypes.INTEGER,
     biaya_sewa_per_hari: DataTypes.DOUBLE,
     image: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'mobil',
-    tableName:'mobil'
+    tableName: 'mobil'
   });
   return mobil;
 };

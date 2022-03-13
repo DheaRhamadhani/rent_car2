@@ -3,19 +3,25 @@ const app = express()
 
 app.use(express.json())
 
-// call karyawan controller
+// panggil karyawan controller
 let karyawanController = require("../controllers/karyawanController")
 
-// endpoint untuk data siswa
-app.get("/", karyawanController.getDataKaryawan)
+// panggil middlewares
+let authorization = require("../middlewares/authorization")
 
-// endpoint untuk add siswa
-app.post("/", karyawanController.addDataKaryawan)
+// end-point get data karyawan
+app.get("/", authorization.authorization, karyawanController.getDataKaryawan)
 
-// endpoint untuk edit siswa
-app.put("/:id_karyawan", karyawanController.editDataKaryawan)
+// end-point add data karyawan
+app.post("/", authorization.authorization, karyawanController.addDataKaryawan)
 
-// endpoint untuk delete siswa
-app.delete("/:id_karyawan", karyawanController.deleteDataKaryawan)
+// end-point edit karyawan
+app.put("/:id_karyawan", authorization.authorization, karyawanController.editDataKaryawan)
+
+// end-point delete karyawan
+app.delete("/:id_karyawan", authorization.authorization, karyawanController.deleteDataKaryawan)
+
+// end-point authentication
+app.post("/auth", karyawanController.authentication)
 
 module.exports = app

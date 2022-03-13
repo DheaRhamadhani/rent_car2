@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   sewa.init({
-    id_sewa:{
+    id:{
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true

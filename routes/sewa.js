@@ -3,19 +3,19 @@ const app = express()
 
 app.use(express.json())
 
-// call sewa controller
+// panggil sewa controller
 let sewaController = require("../controllers/sewaController")
 
-// endpoint untuk data siswa
-app.get("/", sewaController.getDataSwa)
+// end-point get data sewa
+app.get("/", sewaController.getDataSewa)
 
-// endpoint untuk add siswa
+// end-point add data sewa
 app.post("/", sewaController.addDataSewa)
 
-// endpoint untuk edit siswa
-app.put("/:id_sewa", sewaController.editDataSewa)
+// end-point edit sewa
+app.put("/:id", sewaController.editDataSewa)
 
-// endpoint untuk delete siswa
-app.delete("/:id_sewa", sewaController.deleteDataSewa)
+// end-point delete sewa
+app.delete("/:id", sewaController.deleteDataSewa)
 
 module.exports = app

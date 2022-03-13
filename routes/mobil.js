@@ -3,19 +3,26 @@ const app = express()
 
 app.use(express.json())
 
-// call mobil controller
+// panggil mobil controller
 let mobilController = require("../controllers/mobilController")
 
-// endpoint untuk data siswa
-app.get("/", mobilController.getDataMobil)
+// panggil middlewares
+let uploadImage = require("../middlewares/uploadImage")
+let authorization = require("../middlewares/authorization")
 
-// endpoint untuk add siswa
-app.post("/", mobilController.addDataMobil)
+// end-point get data mobil
+app.get("/", authorization.authorization, mobilController.getDataMobil)
 
-// endpoint untuk edit siswa
-app.put("/:id_mobil", mobilController.editDataMobil)
+// end-point add data mobil
+app.post("/", [
+    uploadImage.upload.single(`image`), authorization.authorization
+],
+    mobilController.addDataMobil)
 
-// endpoint untuk delete siswa
-app.delete("/:id_mobil", mobilController.deleteDataMobil)
+// end-point edit mobil
+app.put("/:id_mobil", authorization.authorization, mobilController.editDataMobil)
+
+// end-point delete mobil
+app.delete("/:id_mobil", authorization.authorization, mobilController.deleteDataMobil)
 
 module.exports = app

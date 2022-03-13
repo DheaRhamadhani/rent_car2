@@ -3,19 +3,22 @@ const app = express()
 
 app.use(express.json())
 
-// call pelanggan controller
+// panggil pelanggan controller
 let pelangganController = require("../controllers/pelangganController")
 
-// endpoint untuk data siswa
-app.get("/", pelangganController.getDataPelanggan)
+// panggil middlewares
+let authorization = require("../middlewares/authorization")
 
-// endpoint untuk add siswa
-app.post("/", pelangganController.addDataPelanggan)
+// end-point get data pelanggan
+app.get("/", authorization.authorization, pelangganController.getDataPelanggan)
 
-// endpoint untuk edit siswa
-app.put("/:id_pelanggan", pelangganController.editDataPelanggan)
+// end-point add data pelanggan
+app.post("/", authorization.authorization, pelangganController.addDataPelanggan)
 
-// endpoint untuk delete siswa
-app.delete("/:id_pelanggan", pelangganController.deleteDataPelanggan)
+// end-point edit pelanggan
+app.put("/:id_pelanggan", authorization.authorization, pelangganController.editDataPelanggan)
 
-module.exports = app
+// end-point delete pelanggan
+app.delete("/:id_pelanggan", authorization.authorization, pelangganController.deleteDataPelanggan)
+
+module.exports = app 
